@@ -8,7 +8,7 @@ services:
     container_name: webdav
     restart: unless-stopped
     ports:
-      - "80:80"
+      - "8080:80"
       - "8443:8443"
     volumes:
       - ./data:/usr/share/nginx/html
