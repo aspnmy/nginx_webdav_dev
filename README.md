@@ -1,7 +1,12 @@
 # nginx_webdav_dev
 基于nginxinc/nginx-unprivileged WebDAV 方案的深度优化指南，包含性能调优、安全加固和高级功能配置
 
-
+## 为什么要使用webdav容器
+- 在nas中使用webdav 当暴露在外网使用会有数据风险，所以部署一个独立容器
+- webdav上传考虑到大文件上传、安全优化、性能调优所以有了下面配置文件
+- 收集并保存
+  
+![企业微信截图_17390394669865](https://github.com/user-attachments/assets/c931970a-1d01-4048-b9ca-94aea93e0005)
 
 以下是将所有优化方案整合后的完整nginx.conf配置文件：
 
