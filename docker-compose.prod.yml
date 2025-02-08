@@ -1,9 +1,10 @@
 # docker-compose.prod.yml
+# docker pull nginxinc/nginx-unprivileged:alpine3.20-slim
 version: '3.8'
 
 services:
   webdav:
-    image: nginxinc/nginx-unprivileged:1.23-alpine
+    image: nginxinc/nginx-unprivileged:alpine3.20-slim
     container_name: webdav
     restart: unless-stopped
     ports:
