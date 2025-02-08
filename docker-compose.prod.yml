@@ -1,0 +1,40 @@
+# docker-compose.prod.yml
+version: '3.8'
+
+services:
+  webdav:
+    image: nginxinc/nginx-unprivileged:1.23-alpine
+    container_name: webdav
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "8443:8443"
+    volumes:
+      - ./data:/usr/share/nginx/html
+      - ./ssl:/etc/ssl
+      - ./config/nginx.conf:/etc/nginx/nginx.conf
+      - ./logs:/var/log/nginx
+      - ./htpasswd:/etc/nginx/.htpasswd
+    environment:
+      NGINX_ENTRYPOINT_QUIET_LOGS: "1"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+
+  # 监控服务（可选）
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
